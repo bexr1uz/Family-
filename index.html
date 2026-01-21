@@ -21,6 +21,17 @@
             border: 1px solid #9ac9ff;
             border-radius: 6px;
             display: inline-block;
+            position: relative;
+        }
+        .delBtn {
+            margin-left: 10px;
+            padding: 2px 6px;
+            font-size: 12px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -42,6 +53,11 @@
             {name: "Bexruz Bekdurdiyev", father: "Faxriddin Matyoqubov"},
         ];
 
+        function deletePerson(name) {
+            lists = lists.filter(p => p.name !== name && p.father !== name);
+            renderTree();
+        }
+
         function renderTree() {
             const container = document.getElementById("tree");
             container.innerHTML = "";
@@ -54,9 +70,15 @@
                 .forEach(person => {
                     let node = document.createElement("div");
                     node.className = "node";
-                    node.innerHTML = `<div class="person">${person.name}</div>`;
-                    container.appendChild(node);
 
+                    node.innerHTML = `
+                        <div class="person">
+                            ${person.name}
+                            <button class="delBtn" onclick="deletePerson('${person.name}')">x</button>
+                        </div>
+                    `;
+
+                    container.appendChild(node);
                     treeLists(person.name, node);
                 });
         }
