@@ -2,18 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family</title>
-
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            margin: 30px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .box {
+            display: inline-block;
+            padding: 15px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin: 25px;
+           
+        }
+
+        .box input {
+            padding: 6px 10px;
+            margin: 5px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+            width: 200px;
+        }
+
+        .box button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #2196f3;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .box button:hover {
+            background: #1976d2;
+        }
+
         #tree {
             margin-top: 20px;
             padding: 10px;
         }
+
         .node {
             margin-left: 40px;
             margin-top: 10px;
         }
+
         .person {
             font-weight: bold;
             padding: 5px 10px;
@@ -21,8 +64,8 @@
             border: 1px solid #9ac9ff;
             border-radius: 6px;
             display: inline-block;
-            position: relative;
         }
+
         .delBtn {
             margin-left: 10px;
             padding: 2px 6px;
@@ -33,78 +76,112 @@
             border-radius: 10px;
             cursor: pointer;
         }
+
+        #result {
+            margin-top: 8px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-    <form>
-        <input type="text" id="childName" placeholder="Ismni kiriting">
-        <input type="text" id="parentName" placeholder="Otasini kiriting (ixtiyoriy)">
-    </form>
+<h2>Oila daraxti</h2>
 
-    <button onclick="addElement()">Kiritish</button>
+<div class="box">
+    <input type="text" id="childName" placeholder="Ismni kiriting"><br>
+    <input type="text" id="parentName" placeholder="Otasini kiriting (ixtiyoriy)"><br>
+    <button onclick="addElement()" style="margin-left: 65px;">Kiritish</button>
+</div>
 
-    <div id="tree"></div>
+<div class="box">
+    <input type="text" id="searchName" placeholder="Qidirish uchun ism"><br><br>
+    <button onclick="searchPerson()" style="margin-left: 70px;">Qidirish</button>
+    <p id="result"></p>
+</div>
 
-    <script>
-        let lists = [
-            {name: "Bakdurdi Matyoqubov", father: null},
-            {name: "Faxriddin Matyoqubov", father: "Bakdurdi Matyoqubov"},
-            {name: "Bexruz Bekdurdiyev", father: "Faxriddin Matyoqubov"},
-        ];
+<div id="tree"></div>
 
-        function deletePerson(name) {
-            lists = lists.filter(p => p.name !== name && p.father !== name);
-            renderTree();
-        }
+<script>
+let lists = [
+    {name: "Bakdurdi Matyoqubov", father: null},
+    {name: "Faxriddin Matyoqubov", father: "Bakdurdi Matyoqubov"},
+    {name: "Bexruz Bekdurdiyev", father: "Faxriddin Matyoqubov"},
+];
 
-        function renderTree() {
-            const container = document.getElementById("tree");
-            container.innerHTML = "";
-            treeLists(null, container);
-        }
+function deletePerson(name) {
+    lists = lists.filter(p => p.name !== name && p.father !== name);
+    renderTree();
+}
 
-        function treeLists(father, container) {
-            lists
-                .filter(item => item.father === father)
-                .forEach(person => {
-                    let node = document.createElement("div");
-                    node.className = "node";
+function renderTree() {
+    const container = document.getElementById("tree");
+    container.innerHTML = "";
+    treeLists(null, container);
+}
 
-                    node.innerHTML = `
-                        <div class="person">
-                            ${person.name}
-                            <button class="delBtn" onclick="deletePerson('${person.name}')">x</button>
-                        </div>
-                    `;
+function treeLists(father, container) {
+    lists
+        .filter(item => item.father === father)
+        .forEach(person => {
+            let node = document.createElement("div");
+            node.className = "node";
 
-                    container.appendChild(node);
-                    treeLists(person.name, node);
-                });
-        }
+            node.innerHTML = `
+                <div class="person">
+                    ${person.name}
+                    <button class="delBtn" onclick="deletePerson('${person.name}')">x</button>
+                </div>
+            `;
 
-        function addElement() {
-            let name = document.getElementById("childName").value.trim();
-            let father = document.getElementById("parentName").value.trim();
+            container.appendChild(node);
+            treeLists(person.name, node);
+        });
+}
 
-            if (!name) {
-                alert("Ismni kiriting!");
-                return;
-            }
+function addElement() {
+    let name = document.getElementById("childName").value.trim();
+    let father = document.getElementById("parentName").value.trim();
 
-            lists.push({
-                name: name,
-                father: father || null
-            });
+    if (!name) {
+        alert("Ismni kiriting!");
+        return;
+    }
 
-            document.getElementById("childName").value = "";
-            document.getElementById("parentName").value = "";
+    lists.push({
+        name: name,
+        father: father || null
+    });
 
-            renderTree();
-        }
+    document.getElementById("childName").value = "";
+    document.getElementById("parentName").value = "";
 
-        renderTree();
-    </script>
+    renderTree();
+}
+
+function searchPerson() {
+    let search = document.getElementById("searchName").value.trim();
+
+    if (!search) {
+        alert("Ism kiriting!");
+        return;
+    }
+
+    const names = lists.map(person => person.name);
+    let position = names.indexOf(search);
+
+    if (position !== -1) {
+        document.getElementById("result").innerText =
+            search + " " + (position + 1) + "-o‘rinda joylashgan";
+    } else {
+        document.getElementById("result").innerText =
+            "Bunday ism topilmadi!";
+    }
+
+    document.getElementById("searchName").value = "";
+}
+
+renderTree();
+</script>
 
 </body>
 </html>
