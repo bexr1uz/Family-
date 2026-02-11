@@ -1,3 +1,77 @@
-#childName{
-  border-radius: 30px;
-}
+    body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            margin: 30px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .box {
+            display: inline-block;
+            padding: 15px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin: 25px;
+           
+        }
+
+        .box input {
+            padding: 6px 10px;
+            margin: 5px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+            width: 200px;
+        }
+
+        .box button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #2196f3;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .box button:hover {
+            background: #1976d2;
+        }
+
+        #tree {
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        .node {
+            margin-left: 40px;
+            margin-top: 10px;
+        }
+
+        .person {
+            font-weight: bold;
+            padding: 5px 10px;
+            background: #e7f6ff;
+            border: 1px solid #9ac9ff;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .delBtn {
+            margin-left: 10px;
+            padding: 2px 6px;
+            font-size: 12px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 8px;
+            font-weight: bold;
+        }
