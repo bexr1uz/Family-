@@ -57,6 +57,12 @@ function addElement() {
 function searchPerson() {
     let search = document.getElementById("searchName").value.trim();
 }
+
+ if (searchName) {
+        alert("Ismni kiriting!");
+        return;
+    }
+
     const names = lists.map(person => person.name);
     let position = names.indexOf(search);
 
@@ -65,7 +71,7 @@ function searchPerson() {
             search + " " + (position + 1) + "-o‘rinda joylashgan";
     } else {
         document.getElementById("result").innerText =
-            "Bunday ismli inson topilmadi!";
+            "Bunday  inson topilmadi!";
     }
 
     document.getElementById("searchName").value = "";
@@ -73,3 +79,4 @@ function searchPerson() {
 
 
 renderTree();
+
