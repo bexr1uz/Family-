@@ -57,13 +57,12 @@ function addElement() {
 function searchPerson() {
     let search = document.getElementById("searchName").value.trim();
 }
-
     const names = lists.map(person => person.name);
     let position = names.indexOf(search);
 
     if (position !== -1) {
         document.getElementById("result").innerText =
-            search + " " + "bor" + (position + 1) + "-o‘rinda joylashgan";
+            search + " " + (position + 1) + "-o‘rinda joylashgan";
     } else {
         document.getElementById("result").innerText =
             "Bunday ismli inson topilmadi!";
