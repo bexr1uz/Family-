@@ -56,10 +56,9 @@ function addElement() {
 
 function searchPerson() {
     let search = document.getElementById("searchName").value.trim();
-}
 
- if (searchName) {
-        alert("Ismni kiriting!");
+    if (!search) {
+        alert("Ism kiriting!");
         return;
     }
 
@@ -71,12 +70,10 @@ function searchPerson() {
             search + " " + (position + 1) + "-o‘rinda joylashgan";
     } else {
         document.getElementById("result").innerText =
-            "Bunday  inson topilmadi!";
+            "Bunday ism topilmadi!";
     }
 
     document.getElementById("searchName").value = "";
 }
 
-
 renderTree();
-
